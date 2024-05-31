@@ -6,6 +6,8 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
+import java.util.Locale.IsoCountryCode
 
 const val API_KEY = "34131f3f211b4ca69a5dcc638bb2997d"
 const val BASE_URL = "https://newsapi.org/"
@@ -21,7 +23,27 @@ val retrofit = Retrofit.Builder()
 interface NewsApiService {
 
     @GET("v2/top-headlines?country=us&apiKey=34131f3f211b4ca69a5dcc638bb2997d")
-    suspend fun getNews(): NewsResponse
+    suspend fun getAllNews():NewsResponse
+
+   @GET("v2/top-headlines")
+    suspend fun getNews(
+        @Query("country")
+        countryCode: String = "us",
+        @Query("page")
+        pageNumber: Int = 1,
+        @Query("apiKey")
+        apiKey: String = API_KEY
+    ): NewsResponse
+
+    @GET("v2/everything")
+    suspend fun searchForNews(
+        @Query("q")
+        searchQuery: String,
+        @Query("page")
+        pageNumber: Int = 1,
+        @Query("apiKey")
+        apiKey: String = API_KEY
+    ):NewsResponse
 }
 
 object NewsApi {
