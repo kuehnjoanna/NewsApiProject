@@ -12,7 +12,8 @@ import com.example.apicallsproject.data.model.NewsResponse
 import com.example.apicallsproject.databinding.NewsItemBinding
 
 class NewsAdapter(
-    val dataset: NewsResponse
+    val dataset: List<Article>,
+    val itemClickedCallback: (Article) -> Unit,
 ) : RecyclerView.Adapter<NewsAdapter.ItemViewHolder>() {
 
     inner class ItemViewHolder(val binding: NewsItemBinding):
@@ -24,16 +25,24 @@ class NewsAdapter(
     }
 
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
-        val item = dataset.articles[position]
-        Log.d("adapter", "${item.urlToImage}")
-        holder.binding.tvNews.text = item.description
-        holder.binding.ivNews.load(item.urlToImage){
-            crossfade(true)
-            placeholder(R.drawable.ic_launcher_background)
+
+
+
+        var item = dataset[position]
+        Log.d("adapter", "${item}")
+
+            holder.binding.tvNews.text = item.description
+            holder.binding.ivNews.load(item.urlToImage) {
+                crossfade(true)
+                placeholder(R.drawable.ic_launcher_background)
+            }
+
+        holder.binding.itemClickedLL.setOnClickListener {
+            itemClickedCallback(item)
         }
     }
 
     override fun getItemCount(): Int {
-        return dataset.articles.size
+        return dataset.size
     }
 }

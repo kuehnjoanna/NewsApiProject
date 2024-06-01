@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.SnapHelper
 import com.example.apicallsproject.R
 import com.example.apicallsproject.adapter.NewsAdapter
+import com.example.apicallsproject.data.model.Article
 import com.example.apicallsproject.databinding.FragmentNewsBinding
 import com.example.apicallsproject.databinding.NewsItemBinding
 
@@ -35,9 +37,13 @@ private val viewModel: NewsViewModel by activityViewModels()
         super.onViewCreated(view, savedInstanceState)
         val helper: SnapHelper = PagerSnapHelper()
         helper.attachToRecyclerView(binding.rvNews)
+        val itemClickedCallback: (Article) -> Unit = {
+            viewModel.selectedArticleItem(it)
+            findNavController().navigate(R.id.newsDetailFragment)
+        }
 
         viewModel.articles.observe(viewLifecycleOwner){
-            val adapter = NewsAdapter(it)
+            val adapter = NewsAdapter(it, itemClickedCallback)
             binding.rvNews.adapter = adapter
         }
 

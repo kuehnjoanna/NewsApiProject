@@ -8,8 +8,8 @@ import com.example.apicallsproject.data.model.NewsResponse
 import com.example.apicallsproject.data.remote.NewsApi
 
 class NewsRepository {
-    private val _articles = MutableLiveData<NewsResponse>()
-    val articles: LiveData<NewsResponse>
+    private val _articles = MutableLiveData<List<Article>>()
+    val articles: LiveData<List<Article>>
         get() = _articles
     var _isWorking = MutableLiveData<Boolean>(false)
     val isWorking: LiveData<Boolean>
@@ -19,8 +19,9 @@ class NewsRepository {
 
             val response = NewsApi.apiService.getAllNews()
             Log.d("ApiResponse", response.toString())
+            var lol = response.articles.filter { !it.urlToImage.isNullOrEmpty() || !it.description.isNullOrEmpty() }
 
-            _articles.postValue(response)
+            _articles.postValue(lol)
         }catch (e: Exception){
             Log.d("ApiResponse", "${e.message}")
             _isWorking.postValue(true)
