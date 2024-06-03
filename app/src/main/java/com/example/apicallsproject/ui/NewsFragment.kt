@@ -1,10 +1,13 @@
 package com.example.apicallsproject.ui
 
+import android.content.DialogInterface
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.PagerSnapHelper
@@ -46,8 +49,23 @@ private val viewModel: NewsViewModel by activityViewModels()
             val adapter = NewsAdapter(it, itemClickedCallback)
             binding.rvNews.adapter = adapter
         }
+            viewModel.loadImages()
 
-        viewModel.loadImages()
+            if (viewModel.repository.isWorking.value == false){
+                AlertDialog.Builder(requireContext())
+                    .setTitle("NO INTERNET")
+                    .setPositiveButton(  "ok", DialogInterface.OnClickListener { dialogInterface, _ ->
+                        dialogInterface.cancel()
+                    } )
+                    .show()
+            }else {
+                Log.d("click", "am i working?")
+                viewModel.loadImages()
+            }
+
+
+
+
     }
 
 

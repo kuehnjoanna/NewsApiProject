@@ -18,5 +18,22 @@
         android:id="@+id/newsDetailFragment"
         android:name="com.example.apicallsproject.ui.NewsDetailFragment"
         android:label="fragment_news_detail"
-        tools:layout="@layout/fragment_news_detail" />
+        tools:layout="@layout/fragment_news_detail" >
+        <action
+            android:id="@+id/action_newsDetailFragment_to_favoritesFragment2"
+            app:destination="@id/favoritesFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/favoritesFragment2"
+        android:name="com.example.apicallsproject.ui.FavoritesFragment"
+        android:label="fragment_favorites"
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment2_to_newsDetailFragment"
+            app:destination="@id/newsDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/searchFragment2"
+        android:name="com.example.apicallsproject.ui.SearchFragment"
+        android:label="SearchFragment" />
 </navigation>

@@ -29,18 +29,41 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ivNews"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/moreTV"
+            android:autoLink="web"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/TVvontentNews"/>
+
 
         <LinearLayout
             android:id="@+id/llInput"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:orientation="horizontal"
+            android:orientation="vertical"
+            android:gravity="center"
             app:layout_constraintBottom_toTopOf="@id/tvSwipe"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent">
 
-
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/webView"/>
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fab"
+                android:src="@drawable/baseline_add_24"
+                app:fabSize="normal"
+                android:layout_marginBottom="32dp"
+                android:layout_marginEnd="32dp"
+                android:backgroundTint="@color/yellow"/>
 
         </LinearLayout>
 

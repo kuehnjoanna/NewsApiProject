@@ -8,23 +8,32 @@ import com.example.apicallsproject.data.model.NewsResponse
 import com.example.apicallsproject.data.remote.NewsApi
 
 class NewsRepository {
+
+    //lists that will be later posted in ui
     private val _articles = MutableLiveData<List<Article>>()
     val articles: LiveData<List<Article>>
         get() = _articles
-    var _isWorking = MutableLiveData<Boolean>(false)
+
+    //boolean that is supposed to work according to internet connection
+    var _isWorking = MutableLiveData<Boolean>(true)
     val isWorking: LiveData<Boolean>
         get() = _isWorking
+
+    //news loading function
     suspend fun loadNews() {
         try {
-
+            //getting all news from web
             val response = NewsApi.apiService.getAllNews()
             Log.d("ApiResponse", response.toString())
-            var lol = response.articles.filter { !it.urlToImage.isNullOrEmpty() || !it.description.isNullOrEmpty() }
+            //filtering list from web and adjusting boolean
+            val filteredArticles = response.articles.filter { !it.urlToImage.isNullOrEmpty() && !it.url.isNullOrEmpty() || !it.description.isNullOrEmpty() && !it.url.isNullOrEmpty() }
+          _isWorking.postValue(true)
 
-            _articles.postValue(lol)
+            //
+            _articles.postValue(filteredArticles)
         }catch (e: Exception){
             Log.d("ApiResponse", "${e.message}")
-            _isWorking.postValue(true)
+            _isWorking.postValue(false)
         }
     }
 }

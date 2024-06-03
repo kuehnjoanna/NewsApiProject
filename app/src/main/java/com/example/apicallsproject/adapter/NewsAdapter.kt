@@ -31,8 +31,8 @@ class NewsAdapter(
         var item = dataset[position]
         Log.d("adapter", "${item}")
 
-            holder.binding.tvNews.text = item.description
-            holder.binding.ivNews.load(item.urlToImage) {
+            holder.binding.tvNewsTitle.text = item.description
+            holder.binding.ivNewsImage.load(item.urlToImage) {
                 crossfade(true)
                 placeholder(R.drawable.ic_launcher_background)
             }

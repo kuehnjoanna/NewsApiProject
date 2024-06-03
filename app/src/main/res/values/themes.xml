@@ -2,8 +2,15 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.ApiCallsProject" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorPrimaryVariant">@color/olive</item>
+        <item name="android:statusBarColor">@color/pink</item>
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
     <style name="Theme.ApiCallsProject" parent="Base.Theme.ApiCallsProject" />
+    <style name="Indicator" parent="Widget.Material3.BottomNavigationView">
+
+        <item name="android:color">@color/yellow</item>
+    </style>
 </resources>
